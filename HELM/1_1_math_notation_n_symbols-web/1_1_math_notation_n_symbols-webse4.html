@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta content="HTML Tidy for HTML5 for Linux version 5.2.0" name="generator"/>
+  <title>
+   Rounding to n significant figures
+  </title>
+  <meta charset="utf-8"/>
+  <meta content="target-densitydpi=device-dpi; width=device-width; initial-scale=1.0; minimum-scale=1.0; user-scalable=yes;" name="viewport"/>
+  <meta content="True" name="HandheldFriendly"/>
+  <meta content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" name="generator"/>
+  <link href="1_1_math_notation_n_symbols-web.css" rel="stylesheet" type="text/css"/>
+  <link href="additional.css" rel="stylesheet" type="text/css"/>
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({ mml2jax: { preview: ["[maths rendering]"]}, 
+  "fast-preview": {disabled: true}, 
+  explorer:{ subtitle: true }, 
+  displayAlign: "center",  
+  MatchWebFonts: { 
+  matchFor: { "HTML-CSS": true, NativeMML: false, SVG: false }, 
+  fontCheckDelay: 2000, 
+  fontCheckTimeout: 30 * 1000 
+  }, 
+  "HTML-CSS": { 
+  preferredFont: "STIX",  
+  availableFonts: ["STIX","TeX"],  
+  webFont: "STIX-Web",  
+  linebreaks: { automatic: true, width: "90% container" } 
+  }, 
+  SVG: {  
+  font: "STIX-Web", 
+  linebreaks: { automatic: false, width: "90% container" } 
+  }, 
+  menuSettings: { collapsible: false, autocollapse: false, explorer: false } 
+  });
+  </script>
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Register.MessageHook("End Math", function (msg) { 
+  var nodes = Array.from(msg[1].querySelectorAll('.MJX_Assistive_MathML [id]')); 
+  while (nodes.length) { 
+  nodes.shift().removeAttribute('id'); 
+  } 
+  }, 20);
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full" type="text/javascript">
+  </script>
+  <style type="text/css">
+   ".MathJax_MathML" {text-indent: 0;}
+  </style>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+  </script>
+  <link href="toplayer.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <div class="container">
+   <nav aria-labelledby="topnav">
+    <div id="topnav">
+     [
+     <a href="#main">
+      Skip navigation
+     </a>
+     ] [
+     <a href="1_1_math_notation_n_symbols-webse5.html">
+      next
+     </a>
+     ] [
+     <a href="1_1_math_notation_n_symbols-webse3.html">
+      prev
+     </a>
+     ] [
+     <a href="1_1_math_notation_n_symbols-webse3.html#tail1_1_math_notation_n_symbols-webse3.html">
+      prev-tail
+     </a>
+     ] [
+     <a href="#tail1_1_math_notation_n_symbols-webse4.html">
+      tail
+     </a>
+     ] [
+     <a href="1_1_math_notation_n_symbols-web.html#1_1_math_notation_n_symbols-webse4.html">
+      up
+     </a>
+     ]
+    </div>
+   </nav>
+   <main id="main" role="main">
+    <h3 class="sectionHead">
+     <span class="titlemark">
+      4
+     </span>
+     <a href="1_1_math_notation_n_symbols-web.html#QQ2-7-32" id="x7-320004">
+      Rounding to
+      <!--l. 421
+-->
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+       <mi>
+        n
+       </mi>
+      </math>
+      significant figures
+     </a>
+    </h3>
+    <!--l. 422
+-->
+    <p class="noindent">
+     This process is similar to rounding to decimal places but there are some subtle differences.
+    </p>
+    <!--l. 424
+-->
+    <p class="noindent">
+     To round a number to
+     <!--l. 424
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mi>
+        n
+       </mi>
+      </mrow>
+     </math>
+     significant figures we look at the
+     <!--l. 424
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <msup>
+        <mrow>
+         <mrow>
+          <mo class="MathClass-open">
+           (
+          </mo>
+          <mrow>
+           <mi>
+            n
+           </mi>
+           <mo class="MathClass-bin">
+            +
+           </mo>
+           <mn>
+            1
+           </mn>
+          </mrow>
+          <mo class="MathClass-close">
+           )
+          </mo>
+         </mrow>
+        </mrow>
+        <mrow>
+         <mi>
+          t
+         </mi>
+         <mi>
+          h
+         </mi>
+        </mrow>
+       </msup>
+      </mrow>
+     </math>
+     digit in the decimal expansion of the number.
+    </p>
+    <ul class="itemize1">
+     <li class="itemize">
+      If the
+      <!--l. 427
+-->
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+       <mrow>
+        <msup>
+         <mrow>
+          <mrow>
+           <mo class="MathClass-open">
+            (
+           </mo>
+           <mrow>
+            <mi>
+             n
+            </mi>
+            <mo class="MathClass-bin">
+             +
+            </mo>
+            <mn>
+             1
+            </mn>
+           </mrow>
+           <mo class="MathClass-close">
+            )
+           </mo>
+          </mrow>
+         </mrow>
+         <mrow>
+          <mi>
+           t
+          </mi>
+          <mi>
+           h
+          </mi>
+         </mrow>
+        </msup>
+       </mrow>
+      </math>
+      digit is 0, 1, 2, 3 or 4 then we
+      <strong>
+       round down
+      </strong>
+      : that is, we simply chop to
+      <!--l. 428
+-->
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+       <mrow>
+        <mi>
+         n
+        </mi>
+       </mrow>
+      </math>
+      places, inserting zeros if necessary before the decimal point. (In other words we neglect the
+      <!--l. 429
+-->
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+       <mrow>
+        <msup>
+         <mrow>
+          <mrow>
+           <mo class="MathClass-open">
+            (
+           </mo>
+           <mrow>
+            <mi>
+             n
+            </mi>
+            <mo class="MathClass-bin">
+             +
+            </mo>
+            <mn>
+             1
+            </mn>
+           </mrow>
+           <mo class="MathClass-close">
+            )
+           </mo>
+          </mrow>
+         </mrow>
+         <mrow>
+          <mi>
+           t
+          </mi>
+          <mi>
+           h
+          </mi>
+         </mrow>
+        </msup>
+       </mrow>
+      </math>
+      digit and any digits to its right.)
+     </li>
+     <li class="itemize">
+      If the
+      <!--l. 431
+-->
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+       <mrow>
+        <msup>
+         <mrow>
+          <mrow>
+           <mo class="MathClass-open">
+            (
+           </mo>
+           <mrow>
+            <mi>
+             n
+            </mi>
+            <mo class="MathClass-bin">
+             +
+            </mo>
+            <mn>
+             1
+            </mn>
+           </mrow>
+           <mo class="MathClass-close">
+            )
+           </mo>
+          </mrow>
+         </mrow>
+         <mrow>
+          <mi>
+           t
+          </mi>
+          <mi>
+           h
+          </mi>
+         </mrow>
+        </msup>
+       </mrow>
+      </math>
+      digit is 5, 6, 7, 8 or 9 then we
+      <strong>
+       round up
+      </strong>
+      : we add
+      <!--l. 432
+-->
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+       <mrow>
+        <mn>
+         1
+        </mn>
+       </mrow>
+      </math>
+      to the
+      <!--l. 432
+-->
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+       <mrow>
+        <msup>
+         <mrow>
+          <mi>
+           n
+          </mi>
+         </mrow>
+         <mrow>
+          <mi>
+           t
+          </mi>
+          <mi>
+           h
+          </mi>
+         </mrow>
+        </msup>
+       </mrow>
+      </math>
+      decimal place and then chop to
+      <!--l. 433
+-->
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+       <mrow>
+        <mi>
+         n
+        </mi>
+       </mrow>
+      </math>
+      places, inserting zeros if necessary before the decimal point.
+     </li>
+    </ul>
+    <!--l. 435
+-->
+    <p class="noindent">
+     Examples are given on the next page.
+    </p>
+    <!--l. 436
+-->
+    <p class="noindent">
+     <!--l. 436
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mspace class="qquad" width="2em">
+       </mspace>
+       <mtable align="axis" class="array" columnlines="none none none none" equalcolumns="false" equalrows="false" style="">
+        <mtr>
+         <mtd class="array" columnalign="right">
+          <mfrac>
+           <mrow>
+            <mn>
+             1
+            </mn>
+           </mrow>
+           <mrow>
+            <mn>
+             3
+            </mn>
+           </mrow>
+          </mfrac>
+         </mtd>
+         <mtd class="array" columnalign="center">
+          <mo class="MathClass-rel">
+           =
+          </mo>
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mn>
+           0.3333
+          </mn>
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mspace class="qquad" width="2em">
+          </mspace>
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mstyle class="mbox">
+           <mtext>
+            rounded&nbsp;to&nbsp;4&nbsp;significant&nbsp;figures
+           </mtext>
+          </mstyle>
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+         </mtd>
+         <mtd class="array" columnalign="center">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+          <mfrac>
+           <mrow>
+            <mn>
+             8
+            </mn>
+           </mrow>
+           <mrow>
+            <mn>
+             3
+            </mn>
+           </mrow>
+          </mfrac>
+         </mtd>
+         <mtd class="array" columnalign="center">
+          <mo class="MathClass-rel">
+           =
+          </mo>
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mn>
+           2.66667
+          </mn>
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mstyle class="mbox">
+           <mtext>
+            rounded&nbsp;to&nbsp;6&nbsp;significant&nbsp;figures
+           </mtext>
+          </mstyle>
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+         </mtd>
+         <mtd class="array" columnalign="center">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+          <mi>
+           &pi;
+          </mi>
+         </mtd>
+         <mtd class="array" columnalign="center">
+          <mo class="MathClass-rel">
+           =
+          </mo>
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mn>
+           3.142
+          </mn>
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mstyle class="mbox">
+           <mtext>
+            rounded&nbsp;to&nbsp;4&nbsp;significant&nbsp;figures
+           </mtext>
+          </mstyle>
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+         </mtd>
+         <mtd class="array" columnalign="center">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+          <mn>
+           2136
+          </mn>
+         </mtd>
+         <mtd class="array" columnalign="center">
+          <mo class="MathClass-rel">
+           =
+          </mo>
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mn>
+           2000
+          </mn>
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mstyle class="mbox">
+           <mtext>
+            rounded&nbsp;to&nbsp;1&nbsp;significant&nbsp;figure
+           </mtext>
+          </mstyle>
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+         </mtd>
+         <mtd class="array" columnalign="center">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+          <mn>
+           36.78
+          </mn>
+         </mtd>
+         <mtd class="array" columnalign="center">
+          <mo class="MathClass-rel">
+           =
+          </mo>
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mn>
+           37
+          </mn>
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mstyle class="mbox">
+           <mtext>
+            rounded&nbsp;to&nbsp;2&nbsp;significant&nbsp;figures
+           </mtext>
+          </mstyle>
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+         </mtd>
+         <mtd class="array" columnalign="center">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+        </mtr>
+        <mtr>
+         <mtd class="array" columnalign="right">
+          <mn>
+           6.2399
+          </mn>
+         </mtd>
+         <mtd class="array" columnalign="center">
+          <mo class="MathClass-rel">
+           =
+          </mo>
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mn>
+           6.240
+          </mn>
+         </mtd>
+         <mtd class="array" columnalign="left">
+         </mtd>
+         <mtd class="array" columnalign="left">
+          <mstyle class="mbox">
+           <mtext>
+            rounded&nbsp;to&nbsp;4&nbsp;significant&nbsp;figures
+           </mtext>
+          </mstyle>
+         </mtd>
+        </mtr>
+        <!--rclll
+-->
+       </mtable>
+      </mrow>
+     </math>
+    </p>
+    <!--l. 457
+-->
+    <p class="noindent">
+     Sometimes the phrase &ldquo;significant figures" is abbreviated as &ldquo;s.f." or &ldquo;sig.fig."
+    </p>
+    <!--l. 461
+-->
+    <h5 class="likesubsubsectionHead">
+     <a href="#x7-330004" id="x7-330004">
+      Example 3
+     </a>
+    </h5>
+    <!--l. 462
+-->
+    <p class="noindent">
+     Write down each of these numbers, rounding them to 4 significant figures:
+     <br class="newline"/>
+     <br/>
+     <!--l. 463
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        0.12345
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 463
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mo class="MathClass-bin">
+        &minus;
+       </mo>
+       <mn>
+        0.44444
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 463
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        0.5555555
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 463
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        0.000127351
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 463
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        25679
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 463
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        123.456789
+       </mn>
+       <mo class="MathClass-punc">
+        ,
+       </mo>
+      </mrow>
+     </math>
+     <!--l. 463
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        3456543
+       </mn>
+      </mrow>
+     </math>
+    </p>
+    <!--l. 465
+-->
+    <h5 class="likesubsubsectionHead">
+     <a href="#x7-340004" id="x7-340004">
+      Solution
+     </a>
+    </h5>
+    <!--l. 465
+-->
+    <p class="noindent">
+     <!--l. 465
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        0.1235
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 465
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mo class="MathClass-bin">
+        &minus;
+       </mo>
+       <mn>
+        0.4444
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 465
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        0.5556
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 465
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        0.0001274
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 465
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        25680
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 465
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        123.5
+       </mn>
+      </mrow>
+     </math>
+     ,
+     <!--l. 465
+-->
+     <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+       <mn>
+        3457000
+       </mn>
+      </mrow>
+     </math>
+    </p>
+    <!--l. 469
+-->
+
+<iframe src="https://numbas.mathcentre.ac.uk/question/144199/round-a-number-to-n-significant-figures/embed" width=100% height=450 title="Task 1"></iframe>
+
+
+   </main>
+   <footer>
+    <hr/>
+    Original work was created by
+    <a href="https://www.lboro.ac.uk/departments/mlsc/student-resources/helm-workbooks/consortium-members/">
+     the HELM consortium.
+    </a>
+    <br/>
+    This work is licensed under a
+    <a href="http://creativecommons.org/licenses/by-nc/4.0/" rel="license">
+     Creative Commons Attribution-NonCommercial 4.0 International License
+    </a>
+   </footer>
+   <nav aria-labelledby="botnav">
+    <div id="botnav">
+     [
+     <a href="1_1_math_notation_n_symbols-webse5.html">
+      next
+     </a>
+     ] [
+     <a href="1_1_math_notation_n_symbols-webse3.html">
+      prev
+     </a>
+     ] [
+     <a href="1_1_math_notation_n_symbols-webse3.html#tail1_1_math_notation_n_symbols-webse3.html">
+      prev-tail
+     </a>
+     ] [
+     <a href="1_1_math_notation_n_symbols-webse4.html">
+      front
+     </a>
+     ] [
+     <a href="1_1_math_notation_n_symbols-web.html#1_1_math_notation_n_symbols-webse4.html">
+      up
+     </a>
+     ]
+    </div>
+   </nav>
+   <a id="tail1_1_math_notation_n_symbols-webse4.html">
+   </a>
+  </div>
+ </body>
+</html>
