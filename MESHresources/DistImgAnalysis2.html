@@ -1,0 +1,701 @@
+<p></p>
+<!-- Plotly.js -->
+<p>
+<script src="https://cdn.plot.ly/plotly-latest.min.js">
+  </script>
+</p>
+<!--
+<p id="data">data</p>
+<p id="data2">data2</p>
+-->
+<h3>Choose a colour image file</h3>
+<div><input type="file" id="fileinput" accept="image/*" /></div>
+<h3>Distribution choices</h3>
+<p>Use the radio buttons to choose the distribution that you would like to see on each of the colour channels</p>
+<table>
+<tbody>
+<tr>
+<th>Red channel</th>
+<th>Green channel</th>
+<th>Blue channel</th>
+</tr>
+<tr>
+<td>
+<div><input type="radio" name="Rdist" value="Original" id="ROriginalDist" checked="checked" /> <label for="ROriginalDist">Original image</label></div>
+</td>
+<td>
+<div><input type="radio" name="Gdist" value="Original" id="GOriginalDist" checked="checked" /> <label for="GOriginalDist">Original image</label></div>
+</td>
+<td>
+<div><input type="radio" name="Bdist" value="Original" id="BOriginalDist" checked="checked" /> <label for="BOriginalDist">Original image</label></div>
+</td>
+</tr>
+<tr>
+<td>
+<div><input type="radio" name="Rdist" value="Uniform" id="RUniformDist" /> <label for="RUniformDist">Uniform</label></div>
+</td>
+<td>
+<div><input type="radio" name="Gdist" value="Uniform" id="GUniformDist" /> <label for="GUniformDist">Uniform</label></div>
+</td>
+<td>
+<div><input type="radio" name="Bdist" value="Uniform" id="BUniformDist" /> <label for="BUniformDist">Uniform</label></div>
+</td>
+</tr>
+<tr>
+<td>
+<div><input type="radio" name="Rdist" value="Normal" id="RNormalDist" /> <label for="RNormalDist">Normal</label></div>
+</td>
+<td>
+<div><input type="radio" name="Gdist" value="Normal" id="GNormalDist" /> <label for="GNormalDist">Normal</label></div>
+</td>
+<td>
+<div><input type="radio" name="Bdist" value="Normal" id="BNormalDist" /> <label for="BNormalDist">Normal</label></div>
+</td>
+</tr>
+<tr>
+<td>
+<div><input type="radio" name="Rdist" value="LogNorm" id="RLogNormDist" /> <label for="RLogNormDist">Log Normal</label></div>
+</td>
+<td>
+<div><input type="radio" name="Gdist" value="LogNorm" id="GLogNormDist" /> <label for="GLogNormDist">Log Normal</label></div>
+</td>
+<td>
+<div><input type="radio" name="Bdist" value="LogNorm" id="BLogNormDist" /> <label for="BLogNormDist">Log Normal</label></div>
+</td>
+</tr>
+<tr>
+<td>
+<div><input type="radio" name="Rdist" value="Off" id="ROff" /> <label for="ROff">Turn off channel</label></div>
+</td>
+<td>
+<div><input type="radio" name="Gdist" value="Off" id="GOff" /> <label for="GOff">Turn off channel</label></div>
+</td>
+<td>
+<div><input type="radio" name="Bdist" value="Off" id="BOff" /> <label for="BOff">Turn off channel</label></div>
+</td>
+</tr>
+</tbody>
+</table>
+<p><button type="button" onclick="ProcessImage()" id="btnProcessImage" disabled="disabled">Process the image</button></p>
+<div style="float: left;"><canvas id="canvas"></canvas> <!-- this is a place to store the original image before it is resized.--></div>
+<div class="row">
+<h3 class="label">The original image</h3>
+<h3 class="label">The processed image</h3>
+</div>
+<div class="row">
+<div class="img"><canvas id="cvsRaw"></canvas></div>
+<div class="img"><canvas id="cvsProcessed"></canvas></div>
+</div>
+<h3 class="label">Red channel Unprocessed histogram</h3>
+<div id="divRraw" class="hist"></div>
+<h3 class="label">Red channel processed histogram</h3>
+<div id="divRprocessed" class="hist"></div>
+<h3 class="label">Green channel Unprocessed histogram</h3>
+<div id="divGraw" class="hist"></div>
+<h3 class="label">Green channel processed histogram</h3>
+<div id="divGprocessed" class="hist"></div>
+<h3 class="label">Blue channel Unprocessed histogram</h3>
+<div id="divBraw" class="hist"></div>
+<h3 class="label">Blue channel processed histogram</h3>
+<div id="divBprocessed" class="hist"></div>
+<p>
+<script>
+
+let fileInput = document.getElementById('fileinput');
+fileInput.addEventListener('change', function(ev) {
+   if(ev.target.files) {
+      let file = ev.target.files[0];
+      var reader  = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = function (e) {
+      
+      	// once the image is chosen, draw it and manipulate it.	
+          var image = new Image();
+          image.src = e.target.result;
+          image.onload = function(ev) {
+   			 
+			var maxsize = 300;  // maximum image dimensions
+			 
+            var canvas = document.getElementById('canvas');
+            canvas.width = image.width;
+            canvas.height = image.height;
+            var ctx0 = canvas.getContext('2d');
+            ctx0.drawImage(image,0,0);       
+			 		 
+			const imgwidth = image.width;
+            const imgheight = image.height;
+            
+            //////
+            // resize and display
+            //////
+            
+            var newCanvasSize = resizeCanvas(pd, image.width, image.height, maxsize); // newCanvasSize = [new width, new height, scale factor]
+
+            var pd = ctx0.getImageData(0, 0, image.width,image.height);
+
+            var smallpddata = shrinkImage(pd, image.width, image.height, newCanvasSize); 
+
+			// hide the original image.
+			canvas.width = 0;
+            canvas.height = 0;
+             
+			// plot the shrunken image
+			var cvs1img = document.getElementById('cvsRaw');
+            var ctxRaw = cvsRaw.getContext('2d');
+            var cWidth = newCanvasSize[0];
+            var cHeight = newCanvasSize[1];
+            cvsRaw.width = cWidth;
+            cvsRaw.height = cHeight;
+            var n = newCanvasSize[0]*newCanvasSize[1];
+ 
+            // create imageData object
+            var idata = ctxRaw.createImageData(newCanvasSize[0], newCanvasSize[1]);
+
+            // set our data as source
+            idata.data.set(smallpddata);
+
+            // update canvas with new data
+            ctxRaw.putImageData(idata, 0, 0);
+            
+            // enable the image processing button
+            document.getElementById("btnProcessImage").disabled = false;
+
+		}
+      }
+   }
+});
+
+function ProcessImage(){
+
+  var Rchoice = "";
+  var Gchoice = "";
+  var Bchoice = "";
+  
+
+  var c = document.getElementById("cvsRaw");
+  var ctxRaw = c.getContext("2d");
+  var idata = ctxRaw.getImageData(0, 0, c.width, c.height);
+  var n = c.width * c.height;
+
+  Rchoice = getDistChoice('Rdist');
+  Gchoice = getDistChoice('Gdist');
+  Bchoice = getDistChoice('Bdist');
+
+    
+  // Process the red channel
+  var Rmatrix = extractChannel(idata, 0, n);
+  histogram(Rmatrix,'divRraw');
+  
+  switch(Rchoice){
+    case 'Original':
+      var Rchannel = Rmatrix;
+      histogram(Rmatrix,'divRprocessed');
+      break;
+    case 'Uniform':
+      var Rchannel = uniformDist(Rmatrix); 
+      trimmedHistogram(Rmatrix,'divRprocessed');
+      break;
+    case 'Normal':
+      var Rchannel = normalDist(Rmatrix); 
+      trimmedHistogram(Rmatrix,'divRprocessed');
+      break;
+    case 'LogNorm':
+      var Rchannel = logNormDist(Rmatrix); 
+      trimmedHistogram(Rmatrix,'divRprocessed');
+      break;
+    case 'Off':
+      var Rchannel = OffDist(Rmatrix);
+      histogram(Rmatrix,'divRprocessed');
+      break;
+    default:
+      var Rchannel = Rmatrix;
+      histogram(Rmatrix,'divRprocessed');
+  }
+  
+
+  // Process the green channel
+  var Gmatrix = extractChannel(idata, 1, n);
+  histogram(Gmatrix,'divGraw');
+  
+  switch(Gchoice){
+    case 'Original':
+      var Gchannel = Gmatrix;
+      histogram(Gmatrix,'divGprocessed');
+      break;
+    case 'Uniform':
+      var Gchannel = uniformDist(Gmatrix); 
+      trimmedHistogram(Gmatrix,'divGprocessed');
+      break;
+    case 'Normal':
+      var Gchannel = normalDist(Gmatrix); 
+      trimmedHistogram(Gmatrix,'divGprocessed');
+      break;
+    case 'LogNorm':
+      var Gchannel = logNormDist(Gmatrix); 
+      trimmedHistogram(Gmatrix,'divGprocessed');
+      break;
+    case 'Off':
+      var Gchannel = OffDist(Gmatrix);
+      histogram(Gmatrix,'divGprocessed');
+      break;
+    default:
+      var Gchannel = Gmatrix;
+      histogram(Gmatrix,'divGprocessed');
+  }
+
+  // Process the blue channel
+  var Bmatrix = extractChannel(idata, 2, n);
+  histogram(Bmatrix,'divBraw');
+  
+  switch(Bchoice){
+    case 'Original':
+      var Bchannel = Bmatrix;
+  	  histogram(Bmatrix,'divBprocessed');
+      break;
+    case 'Uniform':
+      var Bchannel = uniformDist(Bmatrix); 
+  	  trimmedHistogram(Bmatrix,'divBprocessed');
+      break;
+    case 'Normal':
+      var Bchannel = normalDist(Bmatrix); 
+  	  trimmedHistogram(Bmatrix,'divBprocessed');
+      break;
+    case 'LogNorm':
+      var Bchannel = logNormDist(Bmatrix); 
+  	  trimmedHistogram(Bmatrix,'divBprocessed');
+      break;
+    case 'Off':
+      var Bchannel = OffDist(Bmatrix);
+  	  histogram(Bmatrix,'divBprocessed');
+      break;
+    default:
+      var Bchannel = Bmatrix;
+  	  histogram(Bmatrix,'divBprocessed');
+  }
+
+
+  // Build the image
+  idata = insertChannels(idata,Rchannel, Gchannel, Bchannel);
+
+  // plot the image
+  var imgDataUniform = setCanvas(idata,'cvsProcessed',c.width,c.height);
+  putImgOnCanvas(idata, 'cvsProcessed');
+
+
+//document.getElementById("data").innerHTML = Rchannel;
+
+//document.getElementById("data2").innerHTML = Gchannel;
+
+
+
+}
+
+function getDistChoice(channel){
+
+  var ele = document.getElementsByName(channel);              
+
+  for(i = 0; i < ele.length; i++) {
+    if(ele[i].checked){
+  		return ele[i].value;
+    }
+  } 
+}
+
+function extractChannel(idata,channel,n){
+  let mat = new Array(n);	
+  const p = 1;
+  for (var i = 0; i < n; i++) {
+    mat[i] = new Array(p); // make each element an array
+  }
+
+  // populate the matrix 
+  for (var i = 0; i < n*4; i+=4) {
+    // the first column is the pixel data
+    mat[i/4][0] = idata.data[i+channel];               
+    // the second column is the position of that pixel from 0 to n-1
+    mat[i/4][1]=i/4;
+  }    
+  return mat;
+}
+
+function insertChannels(idata, channel0, channel1, channel2){
+
+  for (var i = 0; i < idata.data.length-1; i+=4) { 
+    idata.data[i] = channel0[i/4][0];
+    idata.data[i+1] = channel1[i/4][0];
+    idata.data[i+2] = channel2[i/4][0];
+  }
+
+  return idata;
+}
+
+function uniformDist(mat){
+
+  var n = mat.length;
+
+  // sort the array by the 1st column.
+  const matUniform = mat.slice();
+  sortByColumn(matUniform, 0);
+  
+  // Create a uniform distribution (same number of dots at each of 0 .. 255)
+
+  for (i = 0; i < n; i++) {
+    matUniform[i][0] = Math.round(255/n*i);
+  }
+  
+  sortByColumn(matUniform, 1);
+  
+  return matUniform;
+}
+
+function normalDist(mat){
+  
+  var n = mat.length;
+  
+  // sort the array by the 1st column.
+  const matNormal = mat.slice();
+  sortByColumn(matNormal, 0);
+  
+  // Create a normal distribution between 0 and 255 over the number of dots
+  let gaussdat = new Array(n);
+  for (i=0;i<n;i++){
+    gaussdat[i]=255;
+  }
+  var gmean = 128;
+  var gsd = 43;
+  var k = 0;
+  for (i = 0; i< 256  && k<n; i++) { // i represents x
+    var gy = Math.round(n/(gsd*Math.sqrt(2*Math.PI)) * Math.E**((-1/2)*((i-gmean)/gsd )**2));
+    for (var j = 0; j<gy; j++){
+      gaussdat[k] = i;
+      k++;
+    }
+  }
+  
+  // Put the gaussian distribution into the data matrix
+  for (i=0; i < n; i++){
+    matNormal[i][0] = gaussdat[i];
+  }
+
+  sortByColumn(matNormal, 1);
+  
+  return matNormal;
+  
+}
+
+function logNormDist(mat){
+
+  var n = mat.length;  
+
+  // sort the array by the 1st column.
+  const matLogNorm = mat.slice();
+  sortByColumn(matLogNorm, 0);
+  
+  let lognormdat = new Array(n);
+  for (i=0;i<n;i++){
+    lognormdat[i]=255;
+  }
+
+  var gmean = 128;
+  var gsd = 43;
+  var gmusq = Math.pow(3*gmean/4,2);
+  var gvar = Math.pow(gsd,2);
+  var lnmean = Math.log( gmusq/Math.sqrt(gmusq+gvar) );
+  var lnsd = Math.sqrt(Math.log(gvar/gmusq + 1 ));
+  var lnprefix=1;
+  var lnexp=1;
+  var k = 0;
+  for (i = 0; i< 256  && k<n; i++) { // i represents x
+    lnprefix = n/(i*lnsd*Math.sqrt(2*Math.PI));
+    lnexp = -0.5*Math.pow(Math.log(i)-lnmean,2)/Math.pow(lnsd,2);
+    var lny = Math.round(lnprefix * Math.pow(Math.E,lnexp));
+    for (var j = 0; j<lny; j++){
+      lognormdat[k] = i;
+      k++;
+    }
+  }
+  
+  // Put the lognormal distribution into the data matrix
+  for (i=0; i < n; i++){
+    matLogNorm[i][0] = lognormdat[i];
+  }
+
+  // sort the array by the 2nd column.
+  sortByColumn(matLogNorm, 1);
+  
+  return matLogNorm;
+}
+
+function OffDist(mat){
+  var n = mat.length;
+
+  // sort the array by the 1st column.
+  const matOff = mat.slice();
+  
+  // Create a uniform distribution (same number of dots at each of 0 .. 255)
+
+  for (i = 0; i < n; i++) {
+    matOff[i][0] = 0;
+  }
+  
+  return matOff;
+  
+}
+
+function spareStuff(){
+
+//////////////////            
+// Create a lognormal distribution.
+//////////////////
+
+            let lognormdat = new Array(n);
+            for (i=0;i<n;i++){
+              lognormdat[i]=255;
+            }
+            var gmusq = Math.pow(3*gmean/4,2);
+            var gvar = Math.pow(gsd,2);
+            var lnmean = Math.log( gmusq/Math.sqrt(gmusq+gvar) );
+            var lnsd = Math.sqrt(Math.log(gvar/gmusq + 1 ));
+            var lnprefix=1;
+            var lnexp=1;
+            var k = 0;
+            for (i = 0; i< 256  && k<n; i++) { // i represents x
+            	lnprefix = n/(i*lnsd*Math.sqrt(2*Math.PI));
+                lnexp = -0.5*Math.pow(Math.log(i)-lnmean,2)/Math.pow(lnsd,2);
+            	var lny = Math.round(lnprefix * Math.pow(Math.E,lnexp));
+            	for (var j = 0; j<lny; j++){
+                  lognormdat[k] = i;
+                  k++;
+                }
+            }
+
+            // plot the pixels in order
+			var imgDataLNOrdered = setCanvas(idata,'cvsLNdot',cWidth,cHeight);
+            cDatasetArray(imgDataLNOrdered,lognormdat);
+            putImgOnCanvas(imgDataLNOrdered, 'cvsLNdot');
+
+			//plot the image
+			var imgDataLN = setCanvas(idata,'cvsLNimg',cWidth,cHeight);
+
+             const mat7 = mat2.slice();
+             for (i = 0; i < imgDataLN.data.length; i += 4) {
+               mat7[i/4][0] = imgDataLNOrdered.data[i];
+             }
+             // sort the array by the 2nd column.
+            sortByColumn(mat7, 1);
+             
+ 		     // Change the dataset into an imageset and display.
+             cDatasetMatrix(imgDataLN,mat7);
+             putImgOnCanvas(imgDataLN, 'cvsLNimg');    
+             
+             trimmedHistogram(imgDataLNOrdered.data,'divLN');
+}
+
+function resizeCanvas(pd, oldWidth, oldHeight, maxsize){
+  var newWidth = 0;
+  var newHeight = 0;
+  var scalefactor = 1;
+  var boxsize = 1;
+
+  if (oldWidth > maxsize || oldHeight > maxsize){
+    if (oldWidth > oldHeight){    
+      boxsize = Math.round(oldWidth/maxsize);
+      newHeight = Math.floor(oldHeight / boxsize);
+      newWidth = Math.floor(oldWidth / boxsize);
+    } else {
+      boxsize = Math.round(oldHeight/maxsize);
+      newWidth = Math.floor(oldWidth / boxsize);
+      newHeight = Math.floor(oldHeight / boxsize);
+    }
+  } else{ newWidth = oldWidth; newHeight = oldHeight}
+  
+  return [newWidth, newHeight, boxsize];
+}
+
+function shrinkImage(pd, imgwidth, imgheight, newCanvasSize){
+
+  var boxT=0;
+  var boxL=0;
+  var x=0;
+  var y=0;
+  var boxR = [];
+  var boxG = [];
+  var boxB = [];
+  var pixelR = 0;
+  var pixelG = 0;
+  var pixelB = 0;
+  var pixel_idx = 0;
+  var pd_idx = 0;
+
+  var newWidth = newCanvasSize[0];
+  var newHeight = newCanvasSize[1];
+  var boxsize = newCanvasSize[2];
+  var pdsmall = new Array(newWidth*newHeight*4);
+  
+  const n = newWidth * newHeight; 
+
+  for (y=0; y<newHeight; y++){
+    for (x=0; x<newWidth; x++){
+
+      pixel_idx=(y*newWidth+x)*4; // this is the index of the pixel we want to write.
+
+	  // box starting coordinates in old image
+      var x_ = x * boxsize * 4; // the starting number in the row
+      var y_ = y * boxsize; // the row
+            
+      // min() is used to assure that coordinates aren't out of bounds
+      var x_end = Math.min(x_ + boxsize * 4, imgwidth * 4 - 1)
+      var y_end = Math.min(y_ + boxsize, imgheight-1)
+
+      // now collect the box of pixels that is to be averaged.
+      boxR = [];
+      boxG = [];
+      boxB = [];
+      for (boxT=y_; boxT<y_end; boxT++){
+       for (boxL=x_; boxL<x_end; boxL+=4){
+          pd_idx = (boxT * imgwidth * 4 + boxL);
+          boxR[boxR.length] = pd.data[pd_idx];
+          boxG[boxG.length] = pd.data[pd_idx+1];
+          boxB[boxB.length] = pd.data[pd_idx+2];
+		}
+      }
+
+	  pixelR = average(boxR);
+      pixelG = average(boxG);
+      pixelB = average(boxB);
+      
+      pdsmall[pixel_idx] = pixelR;
+      pdsmall[pixel_idx+1] = pixelG;
+      pdsmall[pixel_idx+2] = pixelB;
+      pdsmall[pixel_idx+3] = 255;
+    }    
+  }
+
+return pdsmall;
+
+}
+
+function greyscale(data){
+  // convert to greyscale
+  for (var i=0; i<data.length; i+=4){
+    var avg = Math.round((data[i] + data[i+1] + data[i+2])/3);
+    data[i] = avg;
+    data[i+1] = avg;
+    data[i+2] = avg;
+    return data;
+  }
+}
+
+function average(arr){
+	var sum = 0;
+    for (var i in arr){
+      sum += arr[i];
+    }
+    
+	var average = Math.round(sum / arr.length);
+    return average;    
+}
+
+function sortByColumn(a, colIndex){
+
+    a.sort(sortFunction);
+
+    function sortFunction(a, b) {
+        if (a[colIndex] === b[colIndex]) {
+            return 0;
+        }
+        else {
+            return (a[colIndex] < b[colIndex]) ? -1 : 1;
+        }
+    }
+
+    return a;
+}
+
+function cDatasetMatrix(imgData,matrix){
+
+// Change the dataset into an imageset and display.
+  for (i = 0; i < imgData.data.length; i += 4) {
+    imgData.data[i] = matrix[i/4][0];
+    imgData.data[i+1] = matrix[i/4][0];
+    imgData.data[i+2] = matrix[i/4][0];
+  }
+  return imgData;
+
+}
+
+function cDatasetArray(imgData, arr){
+  for (i = 0; i < imgData.data.length; i += 4) {
+    imgData.data[i] = arr[i/4];
+    imgData.data[i+1] = arr[i/4];
+    imgData.data[i+2] = arr[i/4];
+  }
+  return imgData;
+}
+
+function setCanvas(idata, canvas, width, height){
+  var cvs = document.getElementById(canvas);
+  cvs.width = width;
+  cvs.height = height; 
+  var ctx = cvs.getContext('2d'); 
+  ctx.putImageData(idata, 0, 0);
+  var imgData = ctx.getImageData(0, 0, cvs.width, cvs.height);
+  return imgData;
+}
+
+function putImgOnCanvas(imgData, canvas){
+	var cvs = document.getElementById(canvas);
+    var ctx = cvs.getContext('2d');
+    ctx.putImageData(imgData, 0, 0);    
+}
+
+function trimmedHistogram(channelData,div){
+  var pixels = new Array(channelData.length);
+  var ch = channelData.slice();
+  sortByColumn(ch, 0);
+  
+  for (var i=0;i<ch.length;i++){
+  	pixels[i]=ch[i][0];
+  }
+  
+  var trace = {
+    x: pixels,
+    type: 'histogram',
+    marker: {
+        color: 'rgb(125,125,125)',
+     },
+  };
+  var data = [trace];
+  var layout = {
+    title: 'histogram',
+    xaxis: {range: [2, 253]}
+  };
+  Plotly.newPlot(div, data, layout, {staticPlot: true});
+}
+
+function histogram(channelData,div){
+  var pixels = new Array(channelData.length);
+  var ch = channelData.slice();
+  sortByColumn(ch, 0);
+  
+  for (var i=0;i<ch.length;i++){
+  	pixels[i]=ch[i][0];
+  }
+  
+  var trace = {
+    x: pixels,
+    type: 'histogram',
+    marker: {
+        color: 'rgb(125,125,125)',
+     },
+  };
+  var data = [trace];
+  var layout = {
+    title: 'histogram',
+    xaxis: {range: [0, 255]}
+  };
+  Plotly.newPlot(div, data, layout, {staticPlot: true});
+}
+
+</script>
+</p>
