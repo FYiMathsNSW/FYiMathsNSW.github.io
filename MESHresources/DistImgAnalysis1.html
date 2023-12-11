@@ -1,68 +1,82 @@
-<p></p>
-<!-- Plotly.js -->
-<p>
-<script src="https://cdn.plot.ly/plotly-latest.min.js">
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js">
   </script>
-</p>
-<div><input type="file" id="fileinput" accept="image/*" /></div>
-<div style="float: left;"><canvas id="canvas"></canvas></div>
+  <style>
+     *{font-family: Segoe UI;}
+  
+     .hist{width:600px;
+	  height:300px;
+	  float:left;
+	}
+	.img{width:320px;
+	  float: left;
+	  padding: 1px;
+	}
+
+	.label{width:320px;
+	  float: left;
+	  padding: 1px;
+	}
+
+	/* Clear floats after image containers */
+	.row::after {
+	  content: "";
+	  clear: both;
+	  display: table;
+	}
+  </style>
+</head>
+<body>
+
+<div>
+   <input type="file" id="fileinput" accept = "image/*">  
+</div>
+<div style="float:left;">
+<canvas id= "canvas"></canvas>
+</div>
 <h3>The original image</h3>
-<div class="row">
-<div class="label">
-<p>The image</p>
+<div class='row'>
+ <div class='label'><p> The image </p></div>
+ <div class='label'><p> The pixels in order </p></div>
+  </div>
+<div class='row'>
+  <div class='img'><canvas id="cvs1img"></canvas></div>
+  <div class='img'><canvas id= "cvs1dot"></canvas></div>
+  <div id="div1" class='hist'></div>
+</div>  
+<h3> Uniform Distribution </h3>
+<div class='row'>
+ <div class='label'><p> The image </p></div>
+ <div class='label'><p> The pixels in order </p></div>
 </div>
-<div class="label">
-<p>The pixels in order</p>
+<div class='row'>  
+  <div class='img'><canvas id= "cvsUniformimg"></canvas></div>
+  <div class='img'><canvas id= "cvsUniformdot"></canvas></div>
+  <div id="divUniform" class='hist'></div>
 </div>
+<h3> Normal Distribution </h3>
+<div class='row'>
+ <div class='label'><p> The image </p></div>
+ <div class='label'><p> The pixels in order </p></div>
 </div>
-<div class="row">
-<div class="img"><canvas id="cvs1img"></canvas></div>
-<div class="img"><canvas id="cvs1dot"></canvas></div>
-<div id="div1" class="hist"></div>
+<div class='row'>
+  <div class='img'><canvas id= "cvsNormimg"></canvas></div>
+  <div class='img'><canvas id= "cvsNormdot"></canvas></div>
+  <div id="divNorm" class='hist'></div>
+  </div>
+<h3> Log-Normal Distribution </h3>
+<div class='row'>
+ <div class='label'><p> The image </p></div>
+ <div class='label'><p> The pixels in order </p></div>
 </div>
-<h3>Uniform Distribution</h3>
-<div class="row">
-<div class="label">
-<p>The image</p>
-</div>
-<div class="label">
-<p>The pixels in order</p>
-</div>
-</div>
-<div class="row">
-<div class="img"><canvas id="cvsUniformimg"></canvas></div>
-<div class="img"><canvas id="cvsUniformdot"></canvas></div>
-<div id="divUniform" class="hist"></div>
-</div>
-<h3>Normal Distribution</h3>
-<div class="row">
-<div class="label">
-<p>The image</p>
-</div>
-<div class="label">
-<p>The pixels in order</p>
-</div>
-</div>
-<div class="row">
-<div class="img"><canvas id="cvsNormimg"></canvas></div>
-<div class="img"><canvas id="cvsNormdot"></canvas></div>
-<div id="divNorm" class="hist"></div>
-</div>
-<h3>Log-Normal Distribution</h3>
-<div class="row">
-<div class="label">
-<p>The image</p>
-</div>
-<div class="label">
-<p>The pixels in order</p>
-</div>
-</div>
-<div class="row">
-<div class="img"><canvas id="cvsLNimg"></canvas></div>
-<div class="img"><canvas id="cvsLNdot"></canvas></div>
-<div id="divLN" class="hist"></div>
-</div>
-<p>
+<div class='row'>
+  <div class='img'><canvas id= "cvsLNimg"></canvas></div>
+  <div class='img'><canvas id= "cvsLNdot"></canvas></div>
+  <div id="divLN" class='hist'></div>
+  </div>
 <script>
 
 let fileInput = document.getElementById('fileinput');
@@ -479,6 +493,6 @@ function histogram(imgData,div){
 }
 
 </script>
-</p>
-<p>&lt;imgData.length/4;i++){ pixels[i]=imgData[4*i]; } var trace = { x: pixels, type: 'histogram', marker: { color: 'rgb(125,125,125)', }, }; var data = [trace]; var layout = { title: 'histogram', xaxis: {range: [0, 255]} }; Plotly.newPlot(div, data, layout, {staticPlot: true}); } &lt;imgData.length/4;i++){ pixels[i]=imgData[4*i]; } var trace = { x: pixels, type: 'histogram', marker: { color: 'rgb(125,125,125)', }, }; var data = [trace]; var layout = { title: 'histogram', xaxis: {range: [0, 255]} }; Plotly.newPlot(div, data, layout, {staticPlot: true}); }</p>
-<p><imgdata.length i="" pixels="" imgdata="" 4="" var="" trace="{" x:="" type:="" histogram="" marker:="" color:="" rgb="" 125="" data="[trace];" layout="{" title:="" xaxis:="" range:="" 0="" 255="" plotly="" newplot="" div="" staticplot:="" true="" cript=""><imgdata.length i="" pixels="" imgdata="" 4="" var="" trace="{" x:="" type:="" histogram="" marker:="" color:="" rgb="" 125="" data="[trace];" layout="{" title:="" xaxis:="" range:="" 0="" 255="" plotly="" newplot="" div="" staticplot:="" true="" cript=""></imgdata.length></imgdata.length></p>
+
+</body>
+</html>
