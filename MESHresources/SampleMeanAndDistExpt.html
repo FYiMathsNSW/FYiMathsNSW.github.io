@@ -1,51 +1,115 @@
-<p></p>
-<meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Plotly.js -->
-<p>
-<script src="https://cdn.plot.ly/plotly-latest.min.js">
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js">
   </script>
-</p>
+  <style>
+  
+    *{font-family:Segoe UI;}
+  
+    .hist{width:600px;
+	  height:300px;
+	  <!--float:left;-->
+	}
+
+	.button {
+	  border: 1px solid #999999;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	  border-radius: 8px;
+	}
+	
+	.slidecontainer {
+	  width: 100%;
+	}
+
+	.slider {
+	  -webkit-appearance: none;
+	  width: 100%;
+	  height: 15px;
+	  border-radius: 5px;
+	  background: #d3d3d3;
+	  outline: none;
+	  opacity: 0.7;
+	  -webkit-transition: .2s;
+	  transition: opacity .2s;
+	}
+
+	.slider:hover {
+	  opacity: 1;
+	}
+
+	.slider::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 25px;
+	  height: 25px;
+	  border-radius: 50%;
+	  background: #04AA6D;
+	  cursor: pointer;
+	}
+
+	.slider::-moz-range-thumb {
+	  width: 25px;
+	  height: 25px;
+	  border-radius: 50%;
+	  background: #04AA6D;
+	  cursor: pointer;
+	}
+  </style>
+</head>
+<body>
 <p>Choose the distribution you would like to use.</p>
-<center>
-<table>
-<tbody>
-<tr>
-<td>
-<div><input type="radio" name="dist" value="normal" id="normal" checked="checked" /> <label for="normal">normal</label></div>
-</td>
-<td>
-<div><input type="radio" name="dist" value="lognormal" id="lognormal" /> <label for="lognormal">lognormal</label></div>
-</td>
-<td>
-<div><input type="radio" name="dist" value="uniform" id="uniform" /> <label for="uniform">uniform</label></div>
-</td>
-<td>
-<div><input type="radio" name="dist" value="exponential" id="exponential" /> <label for="exponential">exponential</label></div>
-</td>
-<td>
-<div><input type="radio" name="dist" value="bimodal" id="bimodal" /> <label for="bimodal">bimodal</label></div>
-</td>
-</tr>
-</tbody>
-</table>
-</center>
+<center><table>
+	<tr>
+		<td>    <div>
+        <input type="radio" name="dist" value="normal" id="normal" checked>
+        <label for="normal">normal</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="dist" value="lognormal" id="lognormal">
+        <label for="lognormal">lognormal</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="dist" value="uniform" id="uniform">
+        <label for="uniform">uniform</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="dist" value="exponential" id="exponential">
+        <label for="exponential">exponential</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="dist" value="bimodal" id="bimodal">
+        <label for="bimodal">bimodal</label>
+		</div></td>		
+	</tr>
+</table></center>
+
 <p>Choose the number of samples you would like to take (between 1 and 10 000).</p>
-<center>
-<div class="slidecontainer"><input type="range" min="0" max="9.2103" step="0.0001" value="3.912" class="slider" id="sliderSamples" />
-<p>Number of samples: <span id="noSamples"></span></p>
-</div>
-</center>
+<center><div class="slidecontainer">
+  <input type="range" min="0" max="9.2103" step="0.0001" value="3.912" class="slider" id="sliderSamples">
+  <p>Number of samples: <span id="noSamples"></span></p>
+</div></center>
 <p>Choose the number of times you would like to repeat the experiment (between 1 and 10 000).</p>
-<center>
-<div class="slidecontainer"><input type="range" min="0" max="9.2103" step="0.0001" value="2.303" class="slider" id="sliderExpts" />
-<p>Number of experiments: <span id="noExpts"></span></p>
-</div>
-</center>
+<center><div class="slidecontainer">
+  <input type="range" min="0" max="9.2103" step="0.0001" value="2.303" class="slider" id="sliderExpts">
+  <p>Number of experiments: <span id="noExpts"></span></p>
+</div></center>
 <p></p>
-<center><button onclick="runExpts()" class="button" id="runBtn">Run the experiments</button><center><!--<p id='testData'>test data</p>-->
-<div id="histDist" class="hist"></div>
-<p id="distAndMean">Distribution</p>
-<div id="histExpt" class="hist"></div>
-<p id="exptMean"><br />Sample means</p>
+<center><button onclick="runExpts()" class="button" id="runBtn">Run the experiments</button><center>
+<!--<p id='testData'>test data</p>-->
+<div id="histDist" class='hist'></div>
+<p id='distAndMean'>Distribution</p>
+<div id="histExpt" class='hist'></div>
+<p id='exptMean'><br>Sample means</p>
+
 <script>
 var sliderSamples = document.getElementById("sliderSamples");
 var noSamples = document.getElementById("noSamples");
@@ -95,7 +159,7 @@ function getDistribution(){
       dist = normalDist(pop);
 	  distWord = "normal.";
   }
-  document.getElementById("distAndMean").innerHTML = "Population distribution = " + distWord + "<br /> Population mean = " + Math.round(average(dist)*100)/100;
+  document.getElementById("distAndMean").innerHTML = "Population distribution = " + distWord + "<br> Population mean = " + Math.round(average(dist)*100)/100;
   return dist;
 }
 
@@ -318,4 +382,5 @@ function CLTHistogram(samples,div,autorange){
   
 }
 </script>
-</center></center>
+</body>
+</html>
