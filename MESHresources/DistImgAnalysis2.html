@@ -1,104 +1,153 @@
-<p></p>
-<!-- Plotly.js -->
-<p>
-<script src="https://cdn.plot.ly/plotly-latest.min.js">
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js">
   </script>
-</p>
+  <style>
+    *{font-family: Segoe UI;}
+
+    .hist{width:600px;
+	  height:300px;
+	  float:left;
+	}
+    .img{width:320px;
+	  float: left;
+	  padding: 1px;
+	}
+
+	.label{width:350px;
+	  float: left;
+	  padding: 1px;
+	}
+
+	/* Clear floats after image containers */
+	.row::after {
+	  content: "";
+	  clear: both;
+	  display: table;
+	}
+    table {
+    	border-collapse: collapse;
+    }
+    th, td {
+		padding: 10px;
+        border: 1px solid black;
+	}
+
+  </style>
+</head>
+<body>
 <!--
 <p id="data">data</p>
 <p id="data2">data2</p>
 -->
-<h3>Choose a colour image file</h3>
-<div><input type="file" id="fileinput" accept="image/*" /></div>
+<h3> Choose a colour image file </h3>
+<div>
+   <input type="file" id="fileinput" accept = "image/*">  
+</div>
 <h3>Distribution choices</h3>
-<p>Use the radio buttons to choose the distribution that you would like to see on each of the colour channels</p>
+<p> Use the radio buttons to choose the distribution that you would like to see on each of the colour channels</p>
 <table>
-<tbody>
-<tr>
-<th>Red channel</th>
-<th>Green channel</th>
-<th>Blue channel</th>
-</tr>
-<tr>
-<td>
-<div><input type="radio" name="Rdist" value="Original" id="ROriginalDist" checked="checked" /> <label for="ROriginalDist">Original image</label></div>
-</td>
-<td>
-<div><input type="radio" name="Gdist" value="Original" id="GOriginalDist" checked="checked" /> <label for="GOriginalDist">Original image</label></div>
-</td>
-<td>
-<div><input type="radio" name="Bdist" value="Original" id="BOriginalDist" checked="checked" /> <label for="BOriginalDist">Original image</label></div>
-</td>
-</tr>
-<tr>
-<td>
-<div><input type="radio" name="Rdist" value="Uniform" id="RUniformDist" /> <label for="RUniformDist">Uniform</label></div>
-</td>
-<td>
-<div><input type="radio" name="Gdist" value="Uniform" id="GUniformDist" /> <label for="GUniformDist">Uniform</label></div>
-</td>
-<td>
-<div><input type="radio" name="Bdist" value="Uniform" id="BUniformDist" /> <label for="BUniformDist">Uniform</label></div>
-</td>
-</tr>
-<tr>
-<td>
-<div><input type="radio" name="Rdist" value="Normal" id="RNormalDist" /> <label for="RNormalDist">Normal</label></div>
-</td>
-<td>
-<div><input type="radio" name="Gdist" value="Normal" id="GNormalDist" /> <label for="GNormalDist">Normal</label></div>
-</td>
-<td>
-<div><input type="radio" name="Bdist" value="Normal" id="BNormalDist" /> <label for="BNormalDist">Normal</label></div>
-</td>
-</tr>
-<tr>
-<td>
-<div><input type="radio" name="Rdist" value="LogNorm" id="RLogNormDist" /> <label for="RLogNormDist">Log Normal</label></div>
-</td>
-<td>
-<div><input type="radio" name="Gdist" value="LogNorm" id="GLogNormDist" /> <label for="GLogNormDist">Log Normal</label></div>
-</td>
-<td>
-<div><input type="radio" name="Bdist" value="LogNorm" id="BLogNormDist" /> <label for="BLogNormDist">Log Normal</label></div>
-</td>
-</tr>
-<tr>
-<td>
-<div><input type="radio" name="Rdist" value="Off" id="ROff" /> <label for="ROff">Turn off channel</label></div>
-</td>
-<td>
-<div><input type="radio" name="Gdist" value="Off" id="GOff" /> <label for="GOff">Turn off channel</label></div>
-</td>
-<td>
-<div><input type="radio" name="Bdist" value="Off" id="BOff" /> <label for="BOff">Turn off channel</label></div>
-</td>
-</tr>
-</tbody>
-</table>
-<p><button type="button" onclick="ProcessImage()" id="btnProcessImage" disabled="disabled">Process the image</button></p>
-<div style="float: left;"><canvas id="canvas"></canvas> <!-- this is a place to store the original image before it is resized.--></div>
-<div class="row">
-<h3 class="label">The original image</h3>
-<h3 class="label">The processed image</h3>
+	<tr>
+		<th>Red channel</th><th>Green channel</th><th>Blue channel</th>
+	</tr>
+	<tr>
+		<td>    <div>
+        <input type="radio" name="Rdist" value="Original" id="ROriginalDist" checked>
+        <label for="ROriginalDist">Original image</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Gdist" value="Original" id="GOriginalDist" checked>
+        <label for="GOriginalDist">Original image</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Bdist" value="Original" id="BOriginalDist" checked>
+        <label for="BOriginalDist">Original image</label>
+		</div></td>
+	</tr>
+	<tr>
+		<td>    <div>
+        <input type="radio" name="Rdist" value="Uniform" id="RUniformDist">
+        <label for="RUniformDist">Uniform</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Gdist" value="Uniform" id="GUniformDist">
+        <label for="GUniformDist">Uniform</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Bdist" value="Uniform" id="BUniformDist">
+        <label for="BUniformDist">Uniform</label>
+		</div></td>
+	</tr>
+	<tr>
+		<td>    <div>
+        <input type="radio" name="Rdist" value="Normal" id="RNormalDist">
+        <label for="RNormalDist">Normal</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Gdist" value="Normal" id="GNormalDist">
+        <label for="GNormalDist">Normal</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Bdist" value="Normal" id="BNormalDist">
+        <label for="BNormalDist">Normal</label>
+		</div></td>
+	</tr>
+    <tr>
+		<td>    <div>
+        <input type="radio" name="Rdist" value="LogNorm" id="RLogNormDist">
+        <label for="RLogNormDist">Log Normal</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Gdist" value="LogNorm" id="GLogNormDist">
+        <label for="GLogNormDist">Log Normal</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Bdist" value="LogNorm" id="BLogNormDist">
+        <label for="BLogNormDist">Log Normal</label>
+		</div></td>
+	</tr>
+	<tr>
+		<td>    <div>
+        <input type="radio" name="Rdist" value="Off" id="ROff">
+        <label for="ROff">Turn off channel</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Gdist" value="Off" id="GOff">
+        <label for="GOff">Turn off channel</label>
+		</div></td>
+		<td>    <div>
+        <input type="radio" name="Bdist" value="Off" id="BOff">
+        <label for="BOff">Turn off channel</label>
+		</div></td>
+	</tr></table>
+    <p>
+    	<button type="button" onclick="ProcessImage()" id="btnProcessImage" disabled>Process the image</button>
+    </p>
+<div style="float:left;">
+<canvas id= "canvas"></canvas> <!-- this is a place to store the original image before it is resized.-->
 </div>
-<div class="row">
-<div class="img"><canvas id="cvsRaw"></canvas></div>
-<div class="img"><canvas id="cvsProcessed"></canvas></div>
-</div>
-<h3 class="label">Red channel Unprocessed histogram</h3>
-<div id="divRraw" class="hist"></div>
-<h3 class="label">Red channel processed histogram</h3>
-<div id="divRprocessed" class="hist"></div>
-<h3 class="label">Green channel Unprocessed histogram</h3>
-<div id="divGraw" class="hist"></div>
-<h3 class="label">Green channel processed histogram</h3>
-<div id="divGprocessed" class="hist"></div>
-<h3 class="label">Blue channel Unprocessed histogram</h3>
-<div id="divBraw" class="hist"></div>
-<h3 class="label">Blue channel processed histogram</h3>
-<div id="divBprocessed" class="hist"></div>
-<p>
+<div class='row'>
+ <h3 class='label'> The original image </h3>
+ <h3 class='label'> The processed image </h3>
+  </div>
+<div class='row'>
+  <div class='img'><canvas id="cvsRaw"></canvas></div>
+  <div class='img'><canvas id= "cvsProcessed"></canvas></div>
+</div>  
+ <h3 class='label'> Red channel Unprocessed histogram </h3>
+  <div id="divRraw" class='hist'></div>
+ <h3 class='label'> Red channel processed histogram </h3>
+  <div id="divRprocessed" class='hist'></div>
+ <h3 class='label'> Green channel Unprocessed histogram </h3>
+  <div id="divGraw" class='hist'></div>
+ <h3 class='label'> Green channel processed histogram </h3>
+  <div id="divGprocessed" class='hist'></div>
+ <h3 class='label'> Blue channel Unprocessed histogram </h3>
+  <div id="divBraw" class='hist'></div>
+ <h3 class='label'> Blue channel processed histogram </h3>
+  <div id="divBprocessed" class='hist'></div>
 <script>
 
 let fileInput = document.getElementById('fileinput');
@@ -698,4 +747,6 @@ function histogram(channelData,div){
 }
 
 </script>
-</p>
+
+</body>
+</html>
