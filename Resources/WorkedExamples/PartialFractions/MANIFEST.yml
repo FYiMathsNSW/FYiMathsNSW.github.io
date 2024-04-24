@@ -1,0 +1,23 @@
+author: ''
+base_dir: /
+build_pdf: true
+code: d4dfe40e-eb18-450b-8c5c-a8154e005deb
+format_version: 2
+mathjax_url: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+num_pdf_runs: 1
+root_url: /{theme}/
+structure:
+- build_pdf: true
+  content: []
+  pdf_url: pdf/partialfraction.pdf
+  slug: document_partialfrac
+  source: PartialFraction.tex
+  splitlevel: -2
+  title: 'Document: PartialFraction.tex'
+  type: standalone
+themes:
+- path: default
+  source: default
+  title: Standalone
+title: ''
+year: {}

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+            <meta charset="utf-8">
+            <meta name="robots" content="noindex">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="author" content="" />
+            <meta name="date" content="2024-04-24" />
+        
+
+        <title>Document: PartialFraction.tex | </title>
+
+        
+    
+    
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="static/styles.css">
+            <link rel="stylesheet" id="customiseCSS" href="static/light.css">
+            
+            
+        
+    <link rel="stylesheet" id="customiseCodeCSS" href="static/pygmentize.light.css">
+    <link rel="stylesheet" href="static/codemirror-5.26.0/lib/codemirror.css">
+    <link rel="stylesheet" href="static/code.css">
+    <link rel="stylesheet" href="static/numbasEmbed.css">
+
+    <link rel="stylesheet" href="static/bootstrap-toc.css?v=3">
+    <link rel="stylesheet" href="static/print.css">
+
+
+        
+    
+    
+			<script>
+				var chirun_static_url="static/.";
+			</script>
+            <script defer src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+            <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <script defer src="static/mathjax_config.js"></script>
+            <script type="text/javascript" id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+            <script defer src="static/customisation.js"></script>
+            <script defer src="static/mp4.js"></script>
+            
+            
+			</script>
+        
+    <script defer src="static/jquery.flexibleArea.js"></script>
+    <script defer src="static/spin.min.js"></script>
+    <script defer src="static/codemirror-5.26.0/lib/codemirror.js"></script>
+    <script defer src="static/codemirror-5.26.0/mode/octave/octave.js"></script>
+    <script defer src="static/codemirror-5.26.0/mode/python/python.js"></script>
+    <script defer src="static/codemirror-5.26.0/mode/r/r.js"></script>
+    <script defer src="static/code.js"></script>
+    <script defer src="static/numbasEmbed.js"></script>
+
+    <script defer src="static/bootstrap-toc.js"></script>
+
+    </head>
+    <body data-spy="scroll" data-target="#chapterTOC" data-offset="50">
+        
+<div class="collapse" id="navbarToggleCustomise">
+	<div class="bg-secondary text-white p-3">
+		<form onsubmit="return false;" id="navbarCustomise">
+			<div class="form-row">
+				<label>Theme Customisation</label>
+				<div id="themeSelector" class="form-group col-md-12">
+					<button class="btn btn-dark mr-2" value="dark">Dark</button>
+					<button class="btn btn-pastel mr-2" value="pastel">Pastel</button>
+					<button class="btn btn-light mr-4" value="light">Light</button>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label style="display: block" for="font-scale">Font size (<span id="font-size-display">100%</span>)</label>
+					<input type="range" class="form-control-range col-9 mr-2" id="font-scale" min="50" max="600" value="100">
+					<button id="font-scale-reset" class="btn btn-sm">Reset</button>
+				</div>
+				<div class="form-group col-md-4">
+					<label style="display: block" for="p-space">Spacing (<span id="p-space-display">100%</span>)</label>
+					<input type="range" class="form-control-range col-9 mr-2" id="p-space" min="0" max="600" value="100">
+					<button id="p-space-reset" class="btn btn-sm">Reset</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<button class="navbar-toggler standalone-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleCustomise" aria-controls="navbarToggleCustomise" aria-expanded="false" aria-label="Toggle customisations panel">
+	<span class="fa fa-cog"></span>
+</button>
+
+
+        <header>
+            
+            
+        </header>
+        <main>
+            
+    <div class="container mt-3">
+        <div class="row">
+            
+            <div class="col-md-12">
+			<div class="standalone-nav">
+                
+                
+				
+				<a id="standalone-pdf-link" class="standalone-navitem" href="pdf/partialfraction.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i>&nbsp;Download as PDF</a>
+				
+			</div>
+            
+            <section class="section">
+<h2 id="a0000000002">Partial Fractions </h2>
+<section class="subsection">
+<h3 id="a0000000003">Example</h3>
+<p>
+ Express <script type="math/tex">\dfrac {x^2+x+1}{x^2-2x-3}</script> as the sum of partial fractions. 
+</p>
+</section><section class="subsection">
+<h3 id="a0000000004">Solution</h3>
+<p>
+Begin by factorising the denominator: 
+</p>
+<span class="dmath"><script type="math/tex; mode=display">x^2-2x-3 = (x-3)(x+1)</script></span>
+<p>
+Now observe that the highest degree of both numerator and denominator is the same. This means that the partial fraction decomposition will look like 
+</p>
+<span class="dmath"><script type="math/tex; mode=display">A + \frac{B}{x-3} + \frac{C}{x+1}</script></span>
+<p>
+We first need to work out the whole number, <script type="math/tex">A</script>, as follows. 
+</p>
+<span><script type="math/tex; mode=display">\begin{align*}  \frac{x^2+x+1}{x^2-2x-3} & = \frac{x^2\textcolor {blue}{-2x-3+2x+3}+x+1}{x^2-2x-3}\\ & = \frac{(x^2-2x-3)+(3x+4)}{x^2-2x-3}\\ & = 1 + \frac{3x+4}{x^2-2x-3} \end{align*}</script></span>
+<p>
+Now: 
+</p>
+<span><script type="math/tex; mode=display">\begin{align*}  \frac{3x+4}{x^2-2x-3} & = \frac{3x+4}{(x-3)(x+1)} = \frac{B}{x-3}+ \frac{C}{x+1}\\ & = \frac{B(x+1)+C(x-3)}{(x-3)(x+1)} \end{align*}</script></span>
+<p>
+ Equating numerators: 
+</p>
+<span class="dmath"><script type="math/tex; mode=display">3x+4 = B(x+1)+C(x-3)</script></span>
+<p>
+ Since this is true for all values of <script type="math/tex">x</script>, solve for <script type="math/tex">B</script> and <script type="math/tex">C</script> by evaluating at any two values of <script type="math/tex">x</script>. Choose <script type="math/tex">x=-1</script> and <script type="math/tex">x=3</script>.<br/><br/><script type="math/tex">x=-1:\qquad 1 = -4C \qquad \implies C = -\frac{1}{4}</script><br/><script type="math/tex">x=3:\qquad 13 = 4B \qquad \implies B = \frac{13}{4}</script><br/>
+</p>
+<p>
+Thus 
+</p>
+<span><script type="math/tex; mode=display">\begin{align*}  \frac{x^2+x+1}{x^2-2x-3} & = 1 - \frac{\frac14}{x-3} + \frac{\frac{13}{4}}{x+1}\\ & = 1 - \frac{1}{4(x-3)} + \frac{13}{4(x+1)} \end{align*}</script></span>
+</section>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+        </main>
+		
+		<footer class="text-muted">
+	<hr>
+	<div class="container">
+		<div class="float-right">
+			<ul style="list-style: none">
+			<li><a href="#">Back to top</a></li>
+			
+			
+			<li><a href="pdf/partialfraction.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i>&nbsp;Download as PDF</a></li>
+			
+			</ul>
+		</div>
+		<p>Generated using <a target="_blank" href="https://github.com/chirun-ncl/chirun">Chirun</a>, written by the E-Learning Unit, School of Mathematics &amp; Statistics, Newcastle University</p>
+		<p>This page last generated: 2024-04-24</p>
+	</div>
+</footer>
+		
+    </body>
+</html>
