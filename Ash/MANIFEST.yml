@@ -1,0 +1,73 @@
+author: Ash Bandarawickrama, Mathematics Education Support Hub (MESH), Western Sydney
+  University
+base_dir: fym
+build_pdf: true
+build_zip: true
+format_version: 2
+license: null
+locale: en
+mathjax_url: https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js
+num_pdf_runs: 1
+root_url: /{base}/
+structure:
+- build_pdf: false
+  content: []
+  formats:
+  - filetype: html
+    format: default
+    url: index.html
+  is_hidden: false
+  slug: introduction
+  source: .
+  title: Introduction
+  type: introduction
+  url: index.html
+- build_pdf: false
+  content:
+  - build_pdf: true
+    formats:
+    - filetype: html
+      format: default
+      url: notes/1_functions_and_inve/index.html
+    - filetype: pdf
+      format: default
+      url: notes/1_functions_and_inve/1_functions_and_inve.pdf
+    is_hidden: false
+    pdf_url: notes/1_functions_and_inve/1_functions_and_inve.pdf
+    slug: 1_functions_and_inve
+    source: latex/functions.tex
+    title: 1. Functions and inverse functions
+    type: chapter
+    url: notes/1_functions_and_inve/index.html
+  - build_pdf: true
+    formats:
+    - filetype: html
+      format: default
+      url: notes/2_differential_calcu/index.html
+    - filetype: pdf
+      format: default
+      url: notes/2_differential_calcu/2_differential_calcu.pdf
+    is_hidden: false
+    pdf_url: notes/2_differential_calcu/2_differential_calcu.pdf
+    slug: 2_differential_calcu
+    source: latex/differentiation.tex
+    title: 2. Differential calculus
+    type: chapter
+    url: notes/2_differential_calcu/index.html
+  formats:
+  - filetype: html
+    format: default
+    url: notes/index.html
+  is_hidden: false
+  slug: notes
+  source: .
+  title: Notes
+  type: part
+  url: notes/index.html
+themes:
+- path: .
+  source: default
+  title: Default
+title: Curated resources for first year mathematics
+year: 2025
+zipfile: curated_resources_fo.zip
