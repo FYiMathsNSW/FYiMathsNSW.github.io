@@ -1,2 +1,2 @@
-xt# uwsmesh.github.io
-Western Sydney University Mathematics Education Support Hub Repository
+xt# fyimathsnsw.github.io Repository
+First Year in Mathematics NSW Repository
