@@ -18,7 +18,7 @@ structure:
     url: index.html
   is_hidden: false
   slug: introduction
-  source: .
+  source: intro.tex
   title: Introduction
   type: introduction
   url: index.html
@@ -54,6 +54,21 @@ structure:
     title: 2. Differential calculus
     type: chapter
     url: notes/2_differential_calcu/index.html
+  - build_pdf: true
+    formats:
+    - filetype: html
+      format: default
+      url: notes/3_integral_calculus/index.html
+    - filetype: pdf
+      format: default
+      url: notes/3_integral_calculus/3_integral_calculus.pdf
+    is_hidden: false
+    pdf_url: notes/3_integral_calculus/3_integral_calculus.pdf
+    slug: 3_integral_calculus
+    source: latex/integration.tex
+    title: 3. Integral calculus
+    type: chapter
+    url: notes/3_integral_calculus/index.html
   formats:
   - filetype: html
     format: default
@@ -68,6 +83,6 @@ themes:
 - path: .
   source: default
   title: Default
-title: Curated resources for first year mathematics
+title: Curated videos for first year mathematics
 year: 2025
-zipfile: curated_resources_fo.zip
+zipfile: curated_videos_for_f.zip
